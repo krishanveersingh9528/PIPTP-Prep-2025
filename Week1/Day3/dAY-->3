@@ -1,0 +1,563 @@
+1. Sum of First N Numbers
+Code:
+
+Java
+
+public static int f(int n) {
+  if (n == 0) return 0; [cite: 4]
+  return n + f(n-1); [cite: 5]
+}
+System.out.println(f(5)); [cite: 7]
+Analysis:
+This function calculates the sum of all integers from 1 up to n. The recursion works as follows:
+
+
+Base Case: When n is 0, it returns 0. 
+
+
+Recursive Step: For any n > 0, it adds n to the result of the same function called with n-1. 
+
+Execution for f(5):
+
+f(5) = 5 + f(4)
+
+f(4) = 4 + f(3)
+
+f(3) = 3 + f(2)
+
+f(2) = 2 + f(1)
+
+f(1) = 1 + f(0)
+
+f(0) = 0
+
+Substituting the values back up the call stack:
+f(5) = 5 + 4 + 3 + 2 + 1 + 0 = 15
+
+Output:
+The code will print 
+
+15. 
+
+2. Binary Representation Function
+Code:
+
+Java
+
+public static int foo(int n) {
+  if (n == 1) return 1; [cite: 16]
+  if (n % 2 == 0) return 2 * foo(n / 2); [cite: 17]
+  return 2 * foo((n - 1) / 2) + 1; [cite: 18]
+}
+System.out.println(foo(5)); [cite: 19]
+Analysis:
+This function effectively converts the input number into its binary representation and then interprets that binary string as a base-10 number. Let's trace the execution.
+
+Execution for foo(5):
+
+
+foo(5): Since 5 is odd, it computes 2 * foo((5 - 1) / 2) + 1, which simplifies to 2 * foo(2) + 1. 
+
+
+foo(2): Since 2 is even, it computes 2 * foo(2 / 2), which simplifies to 2 * foo(1). 
+
+
+foo(1): This is the base case and returns 1. 
+
+Substitute back: 
+
+foo(2) becomes 2 * 1 = 2. 
+
+Substitute back again: 
+
+foo(5) becomes 2 * 2 + 1 = 5. 
+
+Output:
+The code will print 
+
+5. 
+
+3. Recursive Multiplication by Zero
+Code:
+
+Java
+
+public static int calc(int n) {
+  if (n < 2) return n; [cite: 39]
+  return calc(n - 1) * calc(n - 2); [cite: 40]
+}
+System.out.println(calc(5)); [cite: 41]
+Analysis:
+This function has a critical flaw in its logic for n >= 2. Let's trace the execution to see why.
+
+
+Base Cases: calc(0) returns 0 and calc(1) returns 1. 
+
+Execution for calc(5):
+
+calc(5) = calc(4) * calc(3)
+
+To find calc(4) and calc(3), we first need calc(2).
+
+calc(2) = calc(1) * calc(0)
+
+Using the base cases, calc(1) = 1 and calc(0) = 0.
+
+Therefore, calc(2) = 1 * 0 = 0.
+
+Since calc(2) is 0, any subsequent calculation that depends on it will also be 0:
+
+calc(3) = calc(2) * calc(1) = 0 * 1 = 0.
+
+calc(4) = calc(3) * calc(2) = 0 * 0 = 0.
+
+calc(5) = calc(4) * calc(3) = 0 * 0 = 0.
+
+Output:
+The code will print 0.
+
+
+Note: The options provided in the document (6, 5, 3, 8) are all incorrect for the given code.  The function will always return 0 for any input 
+
+n >= 2.
+
+4. Greatest Common Divisor (GCD)
+Code:
+
+Java
+
+public static int solve(int a, int b) {
+  if (b == 0) return a; [cite: 48]
+  return solve(b, a % b); [cite: 49]
+}
+System.out.println(solve(48, 18)); [cite: 51]
+Analysis:
+This function computes the 
+
+Greatest Common Divisor (GCD) of two numbers using the Euclidean algorithm. 
+
+
+Base Case: If b becomes 0, the GCD is a. 
+
+
+Recursive Step: The function is called again with b as the new a, and the remainder of a / b as the new b. 
+
+Execution for solve(48, 18):
+
+solve(48, 18) → solve(18, 48 % 18) → solve(18, 12)
+
+solve(18, 12) → solve(12, 18 % 12) → solve(12, 6)
+
+solve(12, 6) → solve(6, 12 % 6) → solve(6, 0)
+
+solve(6, 0) → Base case is met (b == 0), returns a, which is 6.
+
+Output:
+The code will print 
+
+6. 
+
+5. Counting Zeros in an Integer
+Code:
+
+Java
+
+public static int solve(int n) {
+  if (n == 0) return 1; [cite: 63]
+  if (n < 10) return 0; // Interpreted from (n < 1⊕) [cite: 64]
+  if (n % 10 == 0) return 1 + solve(n / 10); [cite: 65]
+  return solve(n / 10); [cite: 66]
+}
+System.out.println(solve(102030)); [cite: 68]
+Analysis:
+This function is designed to count the number of zero digits in a given integer.  It recursively checks the last digit of the number.
+
+Execution for solve(102030):
+
+solve(102030): Last digit is 0. Returns 1 + solve(10203).
+
+solve(10203): Last digit is 3. Returns solve(1020).
+
+solve(1020): Last digit is 0. Returns 1 + solve(102).
+
+solve(102): Last digit is 2. Returns solve(10).
+
+solve(10): Last digit is 0. Returns 1 + solve(1).
+
+solve(1): n < 10. Returns 0.
+
+Summing the results: 1 + 0 + 1 + 0 + 1 + 0 = 3.
+
+Output:
+The code will print 
+
+3. 
+
+
+Note: The document has a slight inconsistency, stating "Option A" but then "Correct ans.3" , where Option A corresponds to the value 2 and the correct answer is indeed 3.
+
+6. Longest Common Subsequence (LCS)
+Code (Corrected):
+
+Java
+
+public static int solve(String X, String Y, int m, int n) {
+  if (m == 0 || n == 0) return 0; [cite: 80]
+  if (X.charAt(m - 1) == Y.charAt(n - 1)) [cite: 81]
+    return 1 + solve(X, Y, m - 1, n - 1); [cite: 83]
+  else
+    return Math.max(solve(X, Y, m - 1, n), solve(X, Y, m, n - 1)); [cite: 82, 84]
+}
+// System.out.println(solve("AGGTAB", "GXTXAYB", 6, 7)); [cite: 87]
+Analysis:
+This function calculates the length of the 
+
+Longest Common Subsequence (LCS) between two strings, X and Y.  A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+
+The common subsequence between "AGGTAB" and "GXTXAYB" is "GTAB".
+
+Output:
+The length of the LCS "GTAB" is 
+
+4. 
+
+7. The 0/1 Knapsack Problem
+Code:
+
+Java
+
+public static int solve(int[] masses, int[] merits, int limit, int itemCount) {
+  if (itemCount == 0 || limit == 0) return 0; [cite: 99]
+  if (masses[itemCount - 1] > limit) [cite: 100]
+    return solve(masses, merits, limit, itemCount - 1); [cite: 101]
+  return Math.max(
+    merits[itemCount - 1] + solve(masses, merits, limit - masses[itemCount - 1], itemCount - 1), [cite: 102, 103]
+    solve(masses, merits, limit, itemCount - 1) [cite: 104]
+  );
+}
+// Input: masses = {1, 3, 4, 5}, merits = {1, 4, 5, 7}, limit = 7 [cite: 108, 109, 110]
+Analysis:
+This code solves the classic 0/1 Knapsack problem. Given a set of items, each with a mass and a merit value, the goal is to determine the combination of items to include in a collection so that the total mass is less than or equal to a given limit and the total merit is maximized.
+
+For each item, the function decides whether to include it or not:
+
+Include the item: Add its merit to the result of the problem for the remaining items and reduced capacity.
+
+Exclude the item: Solve the problem for the remaining items with the same capacity.
+
+The function returns the maximum of these two choices.
+
+Execution for the given input:
+The combination of items that maximizes merit within the mass limit of 7 is:
+
+Item with mass 4 and merit 5.
+
+Item with mass 3 and merit 4.
+
+Total Mass: 4 + 3 = 7
+
+Total Merit: 5 + 4 = 9
+
+Output:
+The maximum possible merit is 
+
+9. 
+
+8. Multiplication via Addition
+Code:
+
+Java
+
+public static int f(int a, int b) {
+  if (b == 0) return 0; [cite: 119]
+  return a + f(a, b - 1); [cite: 120]
+}
+System.out.println(f(3, 2)); [cite: 122]
+Analysis:
+This function effectively calculates multiplication (a * b) by using repeated addition.
+
+Execution for f(3, 2):
+
+f(3, 2) = 3 + f(3, 1)
+
+f(3, 1) = 3 + f(3, 0)
+
+f(3, 0) hits the base case and returns 0.
+
+Substituting back: f(3, 1) = 3 + 0 = 3.
+
+Substituting back again: f(3, 2) = 3 + 3 = 6.
+
+Output:
+The code will print 
+
+6. 
+
+9. Complex Recursive Print
+Code:
+
+Java
+
+void recur(int n) {
+  if (n <= 0) [cite: 129]
+    return; [cite: 130]
+  recur(n - 1); [cite: 131]
+  System.out.print(n); [cite: 132]
+  recur(n - 2); [cite: 133]
+}
+recur(3); [cite: 135]
+Analysis:
+Let's trace the execution flow of the print statements.
+
+Execution for recur(3):
+
+recur(3) calls recur(2).
+
+recur(2) calls recur(1).
+
+recur(1) calls recur(0), which returns.
+
+recur(1) prints 1.
+
+recur(1) calls recur(-1), which returns.
+
+(Back in recur(2)) It prints 2.
+
+recur(2) calls recur(0), which returns.
+
+(Back in recur(3)) It prints 3.
+
+recur(3) calls recur(1).
+
+recur(1) calls recur(0), which returns.
+
+recur(1) prints 1.
+
+recur(1) calls recur(-1), which returns.
+
+The program finishes.
+
+Output:
+The printed output will be 1231.
+
+
+Note: The correct answer provided in the document, "1 2 3 1 2", is incorrect based on the provided code logic. The second recursive call from 
+
+recur(3) is recur(3-2), which is recur(1), not recur(2).
+
+10. Unique Paths in a Grid
+Code:
+
+Java
+
+public static int countPaths(int m, int n) {
+  if (m == 1 || n == 1) return 1; [cite: 141]
+  return countPaths(m - 1, n) + countPaths(m, n - 1); [cite: 142]
+}
+System.out.println(countPaths(3, 3)); [cite: 143]
+Analysis:
+This function calculates the number of unique paths from the top-left corner to the bottom-right corner of an m x n grid, moving only right or down.
+
+Execution for countPaths(3, 3):
+This can be visualized as a tree of calls:
+
+countPaths(3, 3) = countPaths(2, 3) + countPaths(3, 2)
+
+countPaths(2, 3) = countPaths(1, 3) + countPaths(2, 2) = 1 + countPaths(2, 2)
+
+countPaths(3, 2) = countPaths(2, 2) + countPaths(3, 1) = countPaths(2, 2) + 1
+
+countPaths(2, 2) = countPaths(1, 2) + countPaths(2, 1) = 1 + 1 = 2
+
+Substituting back: countPaths(2, 3) = 1 + 2 = 3 and countPaths(3, 2) = 2 + 1 = 3.
+
+Final result: countPaths(3, 3) = 3 + 3 = 6.
+
+Output:
+The code will print 
+
+6. 
+
+11. Stern-Brocot Sequence
+Code:
+
+Java
+
+public static int mystery(int n) {
+  if (n <= 1) return n; [cite: 152]
+  if (n % 2 == 0) [cite: 153]
+    return mystery(n / 2); [cite: 154]
+  else
+    return mystery(n / 2) + mystery(n / 2 + 1); [cite: 156]
+}
+System.out.println(mystery(6)); [cite: 159]
+Analysis:
+This function computes the n-th term of the Stern-Brocot sequence.
+
+Execution for mystery(6):
+
+mystery(6): Since 6 is even, it returns mystery(6 / 2), which is mystery(3).
+
+mystery(3): Since 3 is odd, it returns mystery(3 / 2) + mystery(3 / 2 + 1). Integer division 3 / 2 is 1. So this becomes mystery(1) + mystery(2).
+
+mystery(1): This is a base case and returns 1.
+
+mystery(2): Since 2 is even, it returns mystery(2 / 2), which is mystery(1). This returns 1.
+
+The result for mystery(3) is 1 + 1 = 2.
+
+Therefore, the final result for mystery(6) is 2.
+
+Output:
+The code will print 2.
+
+
+Note: The correct answer provided in the document, "B) 3", is incorrect. The value 3 would be the result for 
+
+mystery(5).
+
+12. Palindrome Check Base Case
+Question:
+Which of the following base cases is valid to stop a recursive palindrome check? 
+
+
+boolean isPal(String s, int start, int end)
+
+Analysis:
+A recursive palindrome check typically compares characters from both ends of a string (start and end) and moves inwards. The recursion should stop when the indices meet or cross each other.
+
+If start == end, the pointers are on the same character (in an odd-length string). This is a valid palindrome state.
+
+If start > end, the pointers have crossed. This means all previous character pairs matched. This is also a valid palindrome state.
+
+Therefore, the condition start >= end correctly covers both scenarios where the recursion should stop and return true.
+
+Correct Option:
+
+
+C) if (start >= end) return true; 
+
+13. Summation Function Analysis
+Code:
+
+Java
+
+int calc(int n) {
+  if (n == 0) return 1; [cite: 180]
+  return calc(n - 1) + n; [cite: 181, 182]
+}
+Analysis:
+Let's analyze what this function computes by tracing a small example, calc(3).
+
+calc(3) = calc(2) + 3
+
+calc(2) = calc(1) + 2
+
+calc(1) = calc(0) + 1
+
+calc(0) is the base case and returns 1.
+
+Substituting back: calc(1) = 1 + 1 = 2.
+
+calc(2) = 2 + 2 = 4.
+
+calc(3) = 4 + 3 = 7.
+
+The function calculates 1 + (1 + 2 + 3 + ... + n). This is 1 + (Sum from 1 to n).
+Let's check the provided options.
+
+A) Sum from 1 to n: For n=3, this is 6. Incorrect.
+
+C) Sum from 0 to n: For n=3, this is 0+1+2+3 = 6. Incorrect.
+
+Conclusion:
+The function as written calculates 1 + (the sum of integers from 1 to n). None of the provided options accurately describe this. The correct answer in the document, "C) Sum from 0 to n", would be correct if the base case 
+
+calc(0) returned 0 instead of 1.
+
+14. Recursive Calls on a Linked List
+Question:
+If a linked list has 100 nodes, how many recursive calls will be made to compute its sum using the given function? 
+
+Code:
+
+Java
+
+int sum(Node head) {
+  if (head == null) return 0; [cite: 193]
+  return head.val + sum(head.next); [cite: 194]
+}
+Analysis:
+The sum function is called once for every node in the linked list. After the call for the 100th node, it calls sum(head.next), where head.next is null. This final call, sum(null), triggers the base case.
+
+Number of calls for the nodes: 100
+
+Number of calls for the base case (null): 1
+
+Total calls: 100 + 1 = 101
+
+Output:
+There will be 
+
+101 recursive calls. 
+
+15. Counting Nodes in a Linked List
+Code:
+
+Java
+
+int count(Node head) {
+  if (head == null) return 0; [cite: 205]
+  return 1 + count(head.next); [cite: 206]
+}
+// Linked list: 5 → 7 → 9 → null [cite: 208]
+Analysis:
+This function is designed to count the number of nodes in a linked list.
+
+Execution:
+
+count(node 5) returns 1 + count(node 7)
+
+count(node 7) returns 1 + count(node 9)
+
+count(node 9) returns 1 + count(null)
+
+count(null) returns 0.
+
+The result is 1 + 1 + 1 + 0 = 3.
+
+Output:
+The code will return 
+
+3. 
+
+16. Printing a Linked List in Reverse
+Code:
+
+Java
+
+void solve(Node head) {
+  if (head == null) return; [cite: 217]
+  solve(head.next); [cite: 218]
+  System.out.print(head.val + " "); [cite: 219]
+}
+Analysis:
+The key to this function is the order of the recursive call and the print statement.
+
+The function first calls itself for the 
+
+next node: solve(head.next). 
+
+This process continues until it reaches the end of the list (head == null).
+
+Only after the recursive call returns does it execute the 
+
+System.out.print statement. 
+
+
+This means the last element's call stack resolves first, printing its value. Then the second-to-last, and so on, back to the head. This behavior results in the list being printed in reverse order.
+
+Function's Action:
+
+
+B) Prints elements from tail to head
